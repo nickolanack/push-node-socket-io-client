@@ -53,7 +53,7 @@ var SocketIOClient = (function() {
 		var me = this;
 
 		var auth=function(){
-			me._socket.emit('authenticate', credentials fn);
+			me._socket.emit('authenticate', credentials, fn);
 		}
 		if(me._connected){
 
