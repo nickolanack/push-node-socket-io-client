@@ -9,7 +9,18 @@ var SocketIOClient = (function() {
 
 		socket.on('disconnect', function() {
 
-			console.log('disconnected')
+			me._isConnected=false;
+        	console.log('disconnected')
+
+        	me._socket.once('connect',function(){
+
+        		//resubscribe!
+
+        		Object.keys(me.subscriptions).forEach(function(channel){
+        			me._socket.emit('subscribe', channel);
+        		});
+        		
+        	})
 
 		});
 
@@ -40,9 +51,15 @@ var SocketIOClient = (function() {
 	};
 	client.prototype.connect = function(credentials, fn) {
 		var me = this;
-	
-		console.log('auth');
-		me._socket.emit('authenticate', credentials, fn);
+
+		var auth=function(){
+			me._socket.emit('authenticate', credentials fn);
+		}
+		if(me._connected){
+
+			auth();
+		}
+		me._socket.on('connect', auth);
 
 		me.subscriptions = {};
 
