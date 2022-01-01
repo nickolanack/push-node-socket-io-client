@@ -54,7 +54,9 @@ var SocketIOClient = (function() {
 
 		var auth=function(){
 			console.log('authenticate');
-			me._socket.emit('authenticate', credentials, fn);
+			me._socket.emit('authenticate', credentials,(success)=>{
+				fn(success, me);
+			});
 		}
 		if(me._connected){
 
@@ -64,7 +66,7 @@ var SocketIOClient = (function() {
 
 		me.subscriptions = {};
 
-		return me
+		return me;
 	};
 	client.prototype.emit = function(channel, event, data, fn) {
 		var me = this;
