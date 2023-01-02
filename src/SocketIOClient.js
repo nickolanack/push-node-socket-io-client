@@ -28,7 +28,11 @@ var SocketIOClient = (function() {
 			me._connected=true;
 			console.log('connected')
 		});
-		
+
+
+		socket.on('connect_error', function(e){
+			console.error(e)
+		});
 		
 
 		console.log('created socket');
@@ -52,8 +56,12 @@ var SocketIOClient = (function() {
 	client.prototype.connect = function(credentials, fn) {
 		var me = this;
 
+		console.log('connecting');
+
 		var auth=function(){
-			console.log('authenticate');
+
+
+			console.log('Client Authenticating');
 			me._socket.emit('authenticate', credentials,(success)=>{
 				fn(success, me);
 			});
