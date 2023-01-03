@@ -1,12 +1,12 @@
 # push-node-socket-io-client
 socketio client wrapper
 
-##Install
+## Install
 
 npm install --save https://github.com/nickolanack/push-node-socket-io-client
 
 
-##Usage
+## Usage
 
 
 ```js
